@@ -3,6 +3,4 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         https://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="../../Storefront/Controller/**/*StorefrontController.php" type="annotation" />
-    <import resource="../../Storefront/Controller/**/*ProductController.php" type="annotation" />
 </routes>

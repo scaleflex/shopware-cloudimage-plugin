@@ -10,23 +10,12 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="CloudImage\Storefront\Controller\StorefrontController" public="true">
-            <call method="setContainer">
-                <argument type="service" id="service_container"/>
-            </call>
+        <service id="CloudImage\Storefront\Subscriber\FooterSubscriber">
+            <argument id="Shopware\Core\System\SystemConfig\SystemConfigService" type="service"/>
+            <tag name="kernel.event_subscriber"/>
         </service>
 
-        <service id="CloudImage\Storefront\Controller\ProductController" public="true">
-            <argument type="service" id="Shopware\Storefront\Page\Product\ProductPageLoader"/>
-            <argument type="service" id="Shopware\Storefront\Page\Product\Configurator\ProductCombinationFinder"/>
-            <argument type="service" id="Shopware\Storefront\Page\Product\QuickView\MinimalQuickViewPageLoader"/>
-            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Review\ProductReviewSaveRoute"/>
-            <argument type="service" id="Shopware\Core\Content\Seo\SeoUrlPlaceholderHandlerInterface"/>
-            <argument type="service" id="Shopware\Storefront\Page\Product\Review\ProductReviewLoader"/>
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
-            <call method="setContainer">
-                <argument type="service" id="service_container"/>
-            </call>
-        </service>
+        <service id="CloudImage\Component\DependencyInjection\CustomProfilerExtensions" />
+        <service id="CloudImage\Component\Profiler\TwigDecorator" />
     </services>
 </container>

@@ -26,7 +26,7 @@ class HeaderSubscriber implements EventSubscriberInterface
 
     public function onStorefrontRender(StorefrontRenderEvent $event): void
     {
+        $html = $event->getParameters();
         $testConfig = $this->systemConfigService->get('CloudImage.config.ciImageQuality');
-        print_r($testConfig);
     }
 }
