@@ -36,7 +36,9 @@ class TwigDecorator extends Environment
     private function overwriteImgTag(string $pageContent): string
     {
         $connection = \Shopware\Core\Kernel::getConnection();
-        $query = $connection->executeQuery("SELECT configuration_key, configuration_value FROM system_config WHERE configuration_key LIKE 'CloudImage.config%'");
+        $query = $connection->executeQuery("SELECT configuration_key, configuration_value 
+                    FROM system_config 
+                    WHERE configuration_key LIKE 'CloudImage.config%'");
         $config = $query->fetchAllAssociative();
         dd($config);
 
