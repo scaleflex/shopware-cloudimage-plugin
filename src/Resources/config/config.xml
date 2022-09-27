@@ -499,6 +499,7 @@
         <input-field type="bool">
             <name>ciRemoveV7</name>
             <label>Removes the "/v7" part in URL format. Activate for token created after October 20th, 2021.</label>
+            <defaultValue>true</defaultValue>
         </input-field>
     </card>
 
