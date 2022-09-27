@@ -14,7 +14,7 @@
     <card>
         <title>Token</title>
         <input-field type="text">
-            <name>cloudimageToken</name>
+            <name>ciToken</name>
             <label>Cloudimage token or custom domain</label>
             <placeholder>Cloudimage token or custom domain</placeholder>
         </input-field>

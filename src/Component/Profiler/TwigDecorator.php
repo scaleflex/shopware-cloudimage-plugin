@@ -59,6 +59,10 @@ class TwigDecorator extends Environment
                     $element->removeAttribute('src');
                     $replaceHtml = true;
                 }
+
+                if ($element->hasAttribute('srcset')) {
+                    $element->removeAttribute('srcset');
+                }
             }
 
             if ($replaceHtml) {

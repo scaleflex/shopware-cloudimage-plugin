@@ -1,0 +1,54 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_script_jquery %}
+    {% if config('CloudImage.config.ciActivation') and config('CloudImage.config.ciToken') != '' %}
+        {% if config('CloudImage.config.ciLazyLoading') %}
+            <!-- Add lazyload library -->
+            <script>
+                window.lazySizesConfig = window.lazySizesConfig || {};
+                window.lazySizesConfig.init = false;
+            </script>
+            <script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
+        {% endif %}
+
+        <!-- Add js-cloudimage-responsiv library -->
+        <script src="https://scaleflex.cloudimg.io/v7/plugins/js-cloudimage-responsive/4.8.12/plain/js-cloudimage-responsive.min.js?vh=1ee401&func=proxy"></script>
+        <!-- Initialize cloudimage responsive -->
+        <script>
+            window.ciResponsive = new window.CIResponsive({
+                {% if config('CloudImage.config.ciLazyLoading') %}
+                lazyLoading: true,
+                {% endif %}
+                {% if config('CloudImage.config.ciUseOriginalUrl') and config('CloudImage.config.ciCustomLibrary') == '' %}
+                doNotReplaceURL: true,
+                {% else %}
+                doNotReplaceURL: false,
+                {% endif %}
+                params: {% if config('CloudImage.config.ciPreventImageResize') %}
+                    'org_if_sml=1&{{ config('CloudImage.config.ciCustomLibrary') }}'
+                {% else %}
+                '{{ config('CloudImage.config.ciCustomLibrary') }}'
+                {% endif %},
+                {% if config('CloudImage.config.ciRemoveV7') %}
+                apiVersion: null,
+                {% endif %}
+                {% if config('CloudImage.config.ciMaximumPixelRatio') == '1' %}
+                devicePixelRatioList: [1],
+                {% endif %}
+                {% if config('CloudImage.config.ciMaximumPixelRatio') == '1.5' %}
+                devicePixelRatioList: [1, 1.5],
+                {% endif %}
+                {% if config('CloudImage.config.ciMaximumPixelRatio') == '2' %}
+                devicePixelRatioList: [1, 1.5, 2],
+                {% endif %}
+                {% if config('CloudImage.config.ciCustomFunction') %}
+                processQueryString: function (props) {{ config('CloudImage.config.ciCustomFunction') }},
+                {% endif %}
+                token: '{{ config('CloudImage.config.ciToken') }}'
+            });
+            {% if config('CloudImage.config.ciLazyLoading') %}
+            window.lazySizes.init();
+            {% endif %}
+        </script>
+    {% endif %}
+{% endblock %}
