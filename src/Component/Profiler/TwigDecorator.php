@@ -2,7 +2,9 @@
 
 namespace CloudImage\Component\Profiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\AbstractSQLServerDriver\Exception\PortWithoutHost;
+use Shopware\Core\Maintenance\System\Struct\DatabaseConnectionInformation;
 use Twig\Environment;
 use Twig\TemplateWrapper;
 
@@ -33,6 +35,11 @@ class TwigDecorator extends Environment
 
     private function overwriteImgTag(string $pageContent): string
     {
+        $connection = \Shopware\Core\Kernel::getConnection();
+        $query = $connection->executeQuery("SELECT configuration_key, configuration_value FROM system_config WHERE configuration_key LIKE 'CloudImage.config%'");
+        $config = $query->fetchAllAssociative();
+        dd($config);
+
         if (stripos($pageContent, '<img') !== false) {
             $dom = new \DOMDocument();
             $useErrors = libxml_use_internal_errors(true);
