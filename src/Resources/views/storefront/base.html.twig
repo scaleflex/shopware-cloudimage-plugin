@@ -49,29 +49,6 @@
             {% if config('CloudImage.config.ciLazyLoading') %}
             window.lazySizes.init();
             {% endif %}
-
-            // reload CloudImage JS when open cart modal
-            // document.querySelector('[data-offcanvas-cart]').addEventListener("click", function(){
-            //     let isAjaxFinished = false;
-            //     let countChecked = 0; // Prevent loop infinity
-            //     function checkDOMRendered() {
-            //         countChecked++;
-            //         let parent = document.querySelector('body');
-            //         let element = parent.querySelector('.cart-offcanvas');
-            //         if (element != null && element.childNodes.length) {
-            //             isAjaxFinished = true;
-            //             setTimeout(function () {
-            //                 window.ciResponsive.process();
-            //             }, 200);
-            //         } else {
-            //             if (countChecked < 5000) { // Prevent loop infinity
-            //                 setTimeout(checkDOMRendered, 100);
-            //             }
-            //         }
-            //     }
-            //
-            //     checkDOMRendered();
-            // });
         </script>
         <script type='text/javascript'>
             var s_ajaxListener = new Object();
