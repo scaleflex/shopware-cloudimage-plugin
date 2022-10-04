@@ -51,27 +51,64 @@
             {% endif %}
 
             // reload CloudImage JS when open cart modal
-            document.querySelector('[data-offcanvas-cart]').addEventListener("click", function(){
-                let isAjaxFinished = false;
-                let countChecked = 0; // Prevent loop infinity
-                function checkDOMRendered() {
-                    countChecked++;
-                    let parent = document.querySelector('body');
-                    let element = parent.querySelector('.cart-offcanvas');
-                    if (element != null && element.childNodes.length) {
-                        isAjaxFinished = true;
-                        setTimeout(function () {
-                            window.ciResponsive.process();
-                        }, 200);
-                    } else {
-                        if (countChecked < 5000) { // Prevent loop infinity
-                            setTimeout(checkDOMRendered, 100);
-                        }
-                    }
-                }
+            // document.querySelector('[data-offcanvas-cart]').addEventListener("click", function(){
+            //     let isAjaxFinished = false;
+            //     let countChecked = 0; // Prevent loop infinity
+            //     function checkDOMRendered() {
+            //         countChecked++;
+            //         let parent = document.querySelector('body');
+            //         let element = parent.querySelector('.cart-offcanvas');
+            //         if (element != null && element.childNodes.length) {
+            //             isAjaxFinished = true;
+            //             setTimeout(function () {
+            //                 window.ciResponsive.process();
+            //             }, 200);
+            //         } else {
+            //             if (countChecked < 5000) { // Prevent loop infinity
+            //                 setTimeout(checkDOMRendered, 100);
+            //             }
+            //         }
+            //     }
+            //
+            //     checkDOMRendered();
+            // });
+        </script>
+        <script type='text/javascript'>
+            var s_ajaxListener = new Object();
+            s_ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
+            s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
+            s_ajaxListener.tempLoad = XMLHttpRequest.prototype.load;
+            s_ajaxListener.callback = function () {
+                console.log('callback');
+                setTimeout(function () {
+                    console.log('render');
+                    window.ciResponsive.process();
+                }, 500);
+            }
 
-                checkDOMRendered();
-            });
+            XMLHttpRequest.prototype.open = function(a,b) {
+                if (!a) var a='';
+                if (!b) var b='';
+                s_ajaxListener.tempOpen.apply(this, arguments);
+                s_ajaxListener.method = a;
+                s_ajaxListener.url = b;
+                if (a.toLowerCase() == 'get') {
+                    s_ajaxListener.data = b.split('?');
+                    s_ajaxListener.data = s_ajaxListener.data[1];
+                }
+            }
+
+            XMLHttpRequest.prototype.send = function(a,b) {
+                if (!a) var a='';
+                if (!b) var b='';
+                s_ajaxListener.tempSend.apply(this, arguments);
+                if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
+                s_ajaxListener.callback();
+            }
+
+            XMLHttpRequest.prototype.load = function() {
+                console.log('load')
+            }
         </script>
     {% endif %}
 {% endblock %}
