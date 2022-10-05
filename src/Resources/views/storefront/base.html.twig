@@ -50,15 +50,15 @@
             window.lazySizes.init();
             {% endif %}
         </script>
+
+        {#add script check http request is calling#}
         <script type='text/javascript'>
             var s_ajaxListener = new Object();
             s_ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
             s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
             s_ajaxListener.tempLoad = XMLHttpRequest.prototype.load;
             s_ajaxListener.callback = function () {
-                console.log('callback');
                 setTimeout(function () {
-                    console.log('render');
                     window.ciResponsive.process();
                 }, 800);
             }
@@ -81,10 +81,6 @@
                 s_ajaxListener.tempSend.apply(this, arguments);
                 if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
                 s_ajaxListener.callback();
-            }
-
-            XMLHttpRequest.prototype.load = function() {
-                console.log('load')
             }
         </script>
     {% endif %}
