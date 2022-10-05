@@ -1,6 +1,6 @@
 {
   "name": "swag/plugin-skeleton",
-  "description": "Cloud Image plugin",
+  "description": "Cloudimage by Scaleflex",
   "type": "shopware-platform-plugin",
   "license": "MIT",
   "autoload": {
@@ -11,8 +11,8 @@
   "extra": {
     "shopware-plugin-class": "CloudImage\\CloudImage",
     "label": {
-      "de-DE": "Cloud Image plugin",
-      "en-GB": "Cloud Image plugin"
+      "de-DE": "Cloudimage by Scaleflex",
+      "en-GB": "Cloudimage by Scaleflex"
     }
   }
 }
