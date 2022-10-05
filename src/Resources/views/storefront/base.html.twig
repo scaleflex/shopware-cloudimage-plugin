@@ -58,9 +58,13 @@
             s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
             s_ajaxListener.tempLoad = XMLHttpRequest.prototype.load;
             s_ajaxListener.callback = function () {
-                setTimeout(function () {
+                let rerenderImage = setInterval(function () {
                     window.ciResponsive.process();
-                }, 800);
+                }, 400);
+
+                setTimeout(function () {
+                    clearInterval(rerenderImage);
+                }, 5000);
             }
 
             XMLHttpRequest.prototype.open = function(a,b) {
