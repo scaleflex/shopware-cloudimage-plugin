@@ -29,4 +29,4 @@
 
 **Advanced User**
 - Custom JS Function: The valid js function starting with { and finishing with }
-- Custom Library Options: Modifies the library URL and must begin with the symbol & (to add transformations)
+- Custom Library Options: Modifies the library URL (to add transformations)

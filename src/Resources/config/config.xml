@@ -196,8 +196,8 @@
         <title>Custom library options</title>
         <input-field type="text">
             <name>ciCustomLibrary</name>
-            <label>Modifies the library URL and must begin with the symbol &amp; (to add transformations)</label>
-            <placeholder>&amp;grey=1</placeholder>
+            <label>Modifies the library URL (to add transformations)</label>
+            <placeholder>grey=1</placeholder>
         </input-field>
     </card>
 </config>
