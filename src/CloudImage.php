@@ -27,6 +27,7 @@ class CloudImage extends Plugin
         $config->set('CloudImage.config.ciMaximumPixelRatio', "2");
         $config->set('CloudImage.config.ciImageQuality', "90");
         $config->set('CloudImage.config.ciRemoveV7', true);
+        $config->set('CloudImage.config.ciActivation', true);
     }
 
     public function activate(ActivateContext $activateContext): void
@@ -39,5 +40,6 @@ class CloudImage extends Plugin
         $config->set('CloudImage.config.ciMaximumPixelRatio', "2");
         $config->set('CloudImage.config.ciImageQuality', "90");
         $config->set('CloudImage.config.ciRemoveV7', true);
+        $config->set('CloudImage.config.ciActivation', true);
     }
 }
