@@ -20,48 +20,41 @@
             let token = explodedToken.shift();
             let domain = explodedToken.join('.');
 
-            //setup config for Cloudimage
-            let config = {};
-            config.token = token;
+            let config = {
+                {% if config('CloudImage.config.ciLazyLoading') %}
+                lazyLoading: true,
+                {% endif %}
+                {% if config('CloudImage.config.ciUseOriginalUrl') and config('CloudImage.config.ciCustomLibrary') == '' %}
+                doNotReplaceURL: true,
+                {% else %}
+                doNotReplaceURL: false,
+                {% endif %}
+                params: {% if config('CloudImage.config.ciPreventImageUpsize') %}
+                    'org_if_sml=1&{{ config('CloudImage.config.ciCustomLibrary') }}'
+                {% else %}
+                '{{ config('CloudImage.config.ciCustomLibrary') }}'
+                {% endif %},
+                {% if config('CloudImage.config.ciRemoveV7') %}
+                apiVersion: null,
+                {% endif %}
+                {% if config('CloudImage.config.ciMaximumPixelRatio') == '1' %}
+                devicePixelRatioList: [1],
+                {% endif %}
+                {% if config('CloudImage.config.ciMaximumPixelRatio') == '1.5' %}
+                devicePixelRatioList: [1, 1.5],
+                {% endif %}
+                {% if config('CloudImage.config.ciMaximumPixelRatio') == '2' %}
+                devicePixelRatioList: [1, 1.5, 2],
+                {% endif %}
+                {% if config('CloudImage.config.ciCustomFunction') %}
+                processQueryString: function (props) {{ config('CloudImage.config.ciCustomFunction') }},
+                {% endif %}
+                token: token
+            };
+
             if (domain !== '') {
                 config.domain = domain;
             }
-
-            {% if config('CloudImage.config.ciLazyLoading') %}
-            config.lazyLoading = true;
-            {% endif %}
-
-            {% if config('CloudImage.config.ciUseOriginalUrl') and config('CloudImage.config.ciCustomLibrary') == '' %}
-            config.doNotReplaceURL = true;
-            {% else %}
-            config.doNotReplaceURL = false;
-            {% endif %}
-
-            {% if config('CloudImage.config.ciPreventImageUpsize') %}
-            config.params = 'org_if_sml=1&{{ config('CloudImage.config.ciCustomLibrary') }}';
-            {% else %}
-            config.params = '{{ config('CloudImage.config.ciCustomLibrary') }}';
-            {% endif %}
-
-            {% if config('CloudImage.config.ciRemoveV7') %}
-            config.apiVersion = null;
-            {% endif %}
-
-            {% if config('CloudImage.config.ciMaximumPixelRatio') == '1' %}
-            config.devicePixelRatioList = [1];
-            {% endif %}
-
-            {% if config('CloudImage.config.ciMaximumPixelRatio') == '1.5' %}
-            config.devicePixelRatioList = [1, 1.5];
-            {% endif %}
-
-            {% if config('CloudImage.config.ciMaximumPixelRatio') == '2' %}
-            config.devicePixelRatioList = [1, 1.5, 2];
-            {% endif %}
-
-            {% if config('CloudImage.config.ciCustomFunction') %}
-            config.processQueryString = function (props) {{ config('CloudImage.config.ciCustomFunction') }};
-            {% endif %}
 
             window.ciResponsive = new window.CIResponsive(config);
 
