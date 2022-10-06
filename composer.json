@@ -10,6 +10,7 @@
   },
   "extra": {
     "shopware-plugin-class": "CloudImage\\CloudImage",
+    "author": "Scaleflex",
     "label": {
       "de-DE": "Cloudimage by Scaleflex",
       "en-GB": "Cloudimage by Scaleflex"

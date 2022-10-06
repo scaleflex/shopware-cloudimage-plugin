@@ -24,7 +24,7 @@
                 {% else %}
                 doNotReplaceURL: false,
                 {% endif %}
-                params: {% if config('CloudImage.config.ciPreventImageResize') %}
+                params: {% if config('CloudImage.config.ciPreventImageUpsize') %}
                     'org_if_sml=1&{{ config('CloudImage.config.ciCustomLibrary') }}'
                 {% else %}
                 '{{ config('CloudImage.config.ciCustomLibrary') }}'
