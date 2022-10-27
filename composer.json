@@ -24,7 +24,7 @@
     }
   ],
   "extra": {
-    "shopware-plugin-class": "Scaleflex\\Cloudimage\\ShopwareCloudimage",
+    "shopware-plugin-class": "Scaleflex\\Cloudimage\\ScaleflexCloudimage",
     "label": {
       "de-DE": "Cloudimage by Scaleflex",
       "en-GB": "Cloudimage by Scaleflex"

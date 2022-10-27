@@ -8,7 +8,7 @@ use Shopware\Core\Framework\Plugin\Context\ActivateContext;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Scaleflex\Cloudimage\Component\DependencyInjection\CustomProfilerExtensions;
 
-class ShopwareCloudimage extends Plugin
+class ScaleflexCloudimage extends Plugin
 {
     public function build(ContainerBuilder $container): void
     {
@@ -23,10 +23,10 @@ class ShopwareCloudimage extends Plugin
         $config = $this->container->get('Shopware\Core\System\SystemConfig\SystemConfigService');
 
         //set the specified values as defaults
-        $config->set('ShopwareCloudimage.config.ciMaximumPixelRatio', "2");
-        $config->set('ShopwareCloudimage.config.ciImageQuality', "90");
-        $config->set('ShopwareCloudimage.config.ciRemoveV7', true);
-        $config->set('ShopwareCloudimage.config.ciActivation', true);
+        $config->set('ScaleflexCloudimage.config.ciMaximumPixelRatio', "2");
+        $config->set('ScaleflexCloudimage.config.ciImageQuality', "90");
+        $config->set('ScaleflexCloudimage.config.ciRemoveV7', true);
+        $config->set('ScaleflexCloudimage.config.ciActivation', true);
     }
 
     public function activate(ActivateContext $activateContext): void
@@ -36,9 +36,9 @@ class ShopwareCloudimage extends Plugin
         $config = $this->container->get('Shopware\Core\System\SystemConfig\SystemConfigService');
 
         //set the specified values as defaults
-        $config->set('ShopwareCloudimage.config.ciMaximumPixelRatio', "2");
-        $config->set('ShopwareCloudimage.config.ciImageQuality', "90");
-        $config->set('ShopwareCloudimage.config.ciRemoveV7', true);
-        $config->set('ShopwareCloudimage.config.ciActivation', true);
+        $config->set('ScaleflexCloudimage.config.ciMaximumPixelRatio', "2");
+        $config->set('ScaleflexCloudimage.config.ciImageQuality', "90");
+        $config->set('ScaleflexCloudimage.config.ciRemoveV7', true);
+        $config->set('ScaleflexCloudimage.config.ciActivation', true);
     }
 }

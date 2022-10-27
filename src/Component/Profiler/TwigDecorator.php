@@ -35,7 +35,7 @@ class TwigDecorator extends Environment
         $connection = \Shopware\Core\Kernel::getConnection();
         $query = $connection->executeQuery("SELECT configuration_key, configuration_value 
                     FROM system_config 
-                    WHERE configuration_key LIKE 'ShopwareCloudimage.config%'");
+                    WHERE configuration_key LIKE 'ScaleflexCloudimage.config%'");
         $config = $query->fetchAllAssociative();
         $arrConfig = [];
         foreach ($config as $item) {
@@ -43,8 +43,8 @@ class TwigDecorator extends Environment
             $arrConfig[$item['configuration_key']] = $itemValue['_value'];
         }
 
-        if ($arrConfig['ShopwareCloudimage.config.ciActivation'] && isset($arrConfig['ShopwareCloudimage.config.ciToken'])
-            && $arrConfig['ShopwareCloudimage.config.ciToken'] != '') {
+        if ($arrConfig['ScaleflexCloudimage.config.ciActivation'] && isset($arrConfig['ScaleflexCloudimage.config.ciToken'])
+            && $arrConfig['ScaleflexCloudimage.config.ciToken'] != '') {
             if (stripos($pageContent, '<img') !== false) {
                 $dom = new \DOMDocument();
                 $useErrors = libxml_use_internal_errors(true);
@@ -53,11 +53,11 @@ class TwigDecorator extends Environment
                 $dom->preserveWhiteSpace = false;
                 $replaceHtml = false;
                 $quality = '';
-                if (isset($arrConfig['ShopwareCloudimage.config.ciImageQuality']) && $arrConfig['ShopwareCloudimage.config.ciImageQuality'] < 100) {
-                    $quality = '?q=' . $arrConfig['ShopwareCloudimage.config.ciImageQuality'];
+                if (isset($arrConfig['ScaleflexCloudimage.config.ciImageQuality']) && $arrConfig['ScaleflexCloudimage.config.ciImageQuality'] < 100) {
+                    $quality = '?q=' . $arrConfig['ScaleflexCloudimage.config.ciImageQuality'];
                 }
 
-                $ignoreSvg = (isset($arrConfig['ShopwareCloudimage.config.ciIgnoreSvgImage'])) ? $arrConfig['ShopwareCloudimage.config.ciIgnoreSvgImage'] : false;
+                $ignoreSvg = (isset($arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'])) ? $arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'] : false;
 
                 foreach ($dom->getElementsByTagName('img') as $element) {
                     /** @var DOMElement $element */
