@@ -1,8 +1,8 @@
 <?php
 
-namespace CloudImage\Component\DependencyInjection;
+namespace Scaleflex\Cloudimage\Component\DependencyInjection;
 
-use CloudImage\Component\Profiler\TwigDecorator;
+use Scaleflex\Cloudimage\Component\Profiler\TwigDecorator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

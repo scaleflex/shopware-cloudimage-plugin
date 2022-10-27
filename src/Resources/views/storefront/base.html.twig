@@ -2,8 +2,8 @@
 
 {% block base_script_jquery %}
     {{ parent() }}
-    {% if config('CloudImage.config.ciActivation') and config('CloudImage.config.ciToken') != '' %}
-        {% if config('CloudImage.config.ciLazyLoading') %}
+    {% if config('ShopwareCloudimage.config.ciActivation') and config('ShopwareCloudimage.config.ciToken') != '' %}
+        {% if config('ShopwareCloudimage.config.ciLazyLoading') %}
             <!-- Add lazyload library -->
             <script>
                 window.lazySizesConfig = window.lazySizesConfig || {};
@@ -16,39 +16,39 @@
         <script src="https://scaleflex.cloudimg.io/v7/plugins/js-cloudimage-responsive/4.8.12/plain/js-cloudimage-responsive.min.js?vh=1ee401&func=proxy"></script>
         <!-- Initialize cloudimage responsive -->
         <script>
-            let ciToken = "{{ config('CloudImage.config.ciToken') }}";
+            let ciToken = "{{ config('ShopwareCloudimage.config.ciToken') }}";
             let explodedToken = ciToken.split(".");
             let token = explodedToken.shift();
             let domain = explodedToken.join('.');
 
             let config = {
-                {% if config('CloudImage.config.ciLazyLoading') %}
+                {% if config('ShopwareCloudimage.config.ciLazyLoading') %}
                 lazyLoading: true,
                 {% endif %}
-                {% if config('CloudImage.config.ciUseOriginalUrl') and config('CloudImage.config.ciCustomLibrary') == '' %}
+                {% if config('ShopwareCloudimage.config.ciUseOriginalUrl') and config('ShopwareCloudimage.config.ciCustomLibrary') == '' %}
                 doNotReplaceURL: true,
                 {% else %}
                 doNotReplaceURL: false,
                 {% endif %}
-                params: {% if config('CloudImage.config.ciPreventImageUpsize') %}
-                    'org_if_sml=1&{{ config('CloudImage.config.ciCustomLibrary') }}'
+                params: {% if config('ShopwareCloudimage.config.ciPreventImageUpsize') %}
+                    'org_if_sml=1&{{ config('ShopwareCloudimage.config.ciCustomLibrary') }}'
                 {% else %}
-                '{{ config('CloudImage.config.ciCustomLibrary') }}'
+                '{{ config('ShopwareCloudimage.config.ciCustomLibrary') }}'
                 {% endif %},
-                {% if config('CloudImage.config.ciRemoveV7') %}
+                {% if config('ShopwareCloudimage.config.ciRemoveV7') %}
                 apiVersion: null,
                 {% endif %}
-                {% if config('CloudImage.config.ciMaximumPixelRatio') == '1' %}
+                {% if config('ShopwareCloudimage.config.ciMaximumPixelRatio') == '1' %}
                 devicePixelRatioList: [1],
                 {% endif %}
-                {% if config('CloudImage.config.ciMaximumPixelRatio') == '1.5' %}
+                {% if config('ShopwareCloudimage.config.ciMaximumPixelRatio') == '1.5' %}
                 devicePixelRatioList: [1, 1.5],
                 {% endif %}
-                {% if config('CloudImage.config.ciMaximumPixelRatio') == '2' %}
+                {% if config('ShopwareCloudimage.config.ciMaximumPixelRatio') == '2' %}
                 devicePixelRatioList: [1, 1.5, 2],
                 {% endif %}
-                {% if config('CloudImage.config.ciCustomFunction') %}
-                processQueryString: function (props) {{ config('CloudImage.config.ciCustomFunction') }},
+                {% if config('ShopwareCloudimage.config.ciCustomFunction') %}
+                processQueryString: function (props) {{ config('ShopwareCloudimage.config.ciCustomFunction') }},
                 {% endif %}
                 token: token
             };
@@ -59,7 +59,7 @@
 
             window.ciResponsive = new window.CIResponsive(config);
 
-            {% if config('CloudImage.config.ciLazyLoading') %}
+            {% if config('ShopwareCloudimage.config.ciLazyLoading') %}
             window.lazySizes.init();
             {% endif %}
         </script>

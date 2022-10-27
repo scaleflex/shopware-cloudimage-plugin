@@ -1,18 +1,18 @@
 {
-  "name": "scaleflex/cloudimage-sw6",
+  "name": "scaleflex/shopware-cloudimage-plugin",
   "description": "Cloudimage by Scaleflex",
   "keywords": ["shopware6", "shopware-6", "cloudimage", "cdn", "shopware-plugin"],
   "type": "shopware-platform-plugin",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "proprietary",
   "autoload": {
     "psr-4": {
-      "CloudImage\\": "src/"
+      "Scaleflex\\Cloudimage\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "CloudImage\\Test\\": "test/"
+      "Scaleflex\\Cloudimage\\Test\\": "test/"
     }
   },
   "require": {
@@ -24,7 +24,7 @@
     }
   ],
   "extra": {
-    "shopware-plugin-class": "CloudImage\\CloudImage",
+    "shopware-plugin-class": "Scaleflex\\Cloudimage\\ShopwareCloudimage",
     "label": {
       "de-DE": "Cloudimage by Scaleflex",
       "en-GB": "Cloudimage by Scaleflex"

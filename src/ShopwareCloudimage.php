@@ -1,15 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace CloudImage;
+namespace Scaleflex\Cloudimage;
 
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
-use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use CloudImage\Component\DependencyInjection\CustomProfilerExtensions;
+use Scaleflex\Cloudimage\Component\DependencyInjection\CustomProfilerExtensions;
 
-class CloudImage extends Plugin
+class ShopwareCloudimage extends Plugin
 {
     public function build(ContainerBuilder $container): void
     {
@@ -24,10 +23,10 @@ class CloudImage extends Plugin
         $config = $this->container->get('Shopware\Core\System\SystemConfig\SystemConfigService');
 
         //set the specified values as defaults
-        $config->set('CloudImage.config.ciMaximumPixelRatio', "2");
-        $config->set('CloudImage.config.ciImageQuality', "90");
-        $config->set('CloudImage.config.ciRemoveV7', true);
-        $config->set('CloudImage.config.ciActivation', true);
+        $config->set('ShopwareCloudimage.config.ciMaximumPixelRatio', "2");
+        $config->set('ShopwareCloudimage.config.ciImageQuality', "90");
+        $config->set('ShopwareCloudimage.config.ciRemoveV7', true);
+        $config->set('ShopwareCloudimage.config.ciActivation', true);
     }
 
     public function activate(ActivateContext $activateContext): void
@@ -37,9 +36,9 @@ class CloudImage extends Plugin
         $config = $this->container->get('Shopware\Core\System\SystemConfig\SystemConfigService');
 
         //set the specified values as defaults
-        $config->set('CloudImage.config.ciMaximumPixelRatio', "2");
-        $config->set('CloudImage.config.ciImageQuality', "90");
-        $config->set('CloudImage.config.ciRemoveV7', true);
-        $config->set('CloudImage.config.ciActivation', true);
+        $config->set('ShopwareCloudimage.config.ciMaximumPixelRatio', "2");
+        $config->set('ShopwareCloudimage.config.ciImageQuality', "90");
+        $config->set('ShopwareCloudimage.config.ciRemoveV7', true);
+        $config->set('ShopwareCloudimage.config.ciActivation', true);
     }
 }
