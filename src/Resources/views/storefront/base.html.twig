@@ -1,6 +1,7 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
 {% block base_script_jquery %}
+    {{ parent() }}
     {% if config('CloudImage.config.ciActivation') and config('CloudImage.config.ciToken') != '' %}
         {% if config('CloudImage.config.ciLazyLoading') %}
             <!-- Add lazyload library -->
