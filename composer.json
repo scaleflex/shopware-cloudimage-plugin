@@ -1,19 +1,41 @@
 {
-  "name": "swag/plugin-skeleton",
+  "name": "scaleflex/cloudimage-sw6",
   "description": "Cloudimage by Scaleflex",
+  "keywords": ["shopware6", "shopware-6", "cloudimage", "cdn", "shopware-plugin"],
   "type": "shopware-platform-plugin",
+  "version": "1.0.0",
   "license": "MIT",
   "autoload": {
     "psr-4": {
       "CloudImage\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "CloudImage\\Test\\": "test/"
+    }
+  },
+  "require": {
+    "shopware/core": "*"
+  },
+  "authors": [
+    {
+      "name": "Scaleflex"
+    }
+  ],
   "extra": {
     "shopware-plugin-class": "CloudImage\\CloudImage",
-    "author": "Scaleflex",
     "label": {
       "de-DE": "Cloudimage by Scaleflex",
       "en-GB": "Cloudimage by Scaleflex"
+    },
+    "manufacturerLink": {
+      "de-DE": "https://scaleflex.com",
+      "en-GB": "https://scaleflex.com"
+    },
+    "description": {
+      "de-DE": "The easiest way to resize, compress, optimize and distribute your images lightning fast to your users on any device via CDN.",
+      "en-GB": "The easiest way to resize, compress, optimize and distribute your images lightning fast to your users on any device via CDN."
     }
   }
 }
