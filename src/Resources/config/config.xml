@@ -53,6 +53,7 @@
             <label>If you set Maximum "Pixel ratio" equal to 2, but some of your assets does not have min retina size(at
                 least 2560x960), please enable this to prevent image resized. By default, yes.
             </label>
+            <defaultValue>true</defaultValue>
         </input-field>
     </card>
 
@@ -188,7 +189,7 @@
         <input-field type="textarea">
             <name>ciCustomFunction</name>
             <label>The valid js function starting with { and finishing with }</label>
-            <placeholder>{ console.log('example'); }</placeholder>
+            <placeholder>{ console.log(props); }</placeholder>
         </input-field>
     </card>
 

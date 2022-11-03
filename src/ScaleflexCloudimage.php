@@ -26,6 +26,7 @@ class ScaleflexCloudimage extends Plugin
         $config->set('ScaleflexCloudimage.config.ciMaximumPixelRatio', "2");
         $config->set('ScaleflexCloudimage.config.ciImageQuality', "90");
         $config->set('ScaleflexCloudimage.config.ciRemoveV7', true);
+        $config->set('ScaleflexCloudimage.config.ciPreventImageUpsize', true);
         $config->set('ScaleflexCloudimage.config.ciActivation', true);
     }
 
@@ -39,6 +40,7 @@ class ScaleflexCloudimage extends Plugin
         $config->set('ScaleflexCloudimage.config.ciMaximumPixelRatio', "2");
         $config->set('ScaleflexCloudimage.config.ciImageQuality', "90");
         $config->set('ScaleflexCloudimage.config.ciRemoveV7', true);
+        $config->set('ScaleflexCloudimage.config.ciPreventImageUpsize', true);
         $config->set('ScaleflexCloudimage.config.ciActivation', true);
     }
 }

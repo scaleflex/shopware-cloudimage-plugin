@@ -33,7 +33,7 @@
                 params: {% if config('ScaleflexCloudimage.config.ciPreventImageUpsize') %}
                     'org_if_sml=1&{{ config('ScaleflexCloudimage.config.ciCustomLibrary') }}'
                 {% else %}
-                '{{ config('ScaleflexCloudimage.config.ciCustomLibrary') }}'
+                    '{{ config('ScaleflexCloudimage.config.ciCustomLibrary') }}'
                 {% endif %},
                 {% if config('ScaleflexCloudimage.config.ciRemoveV7') %}
                 apiVersion: null,
