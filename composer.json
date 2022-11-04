@@ -26,7 +26,7 @@
   "extra": {
     "shopware-plugin-class": "Scaleflex\\Cloudimage\\ScaleflexCloudimage",
     "label": {
-      "de-DE": "Cloudimage by Scaleflex",
+      "de-DE": "Cloudimage von Scaleflex",
       "en-GB": "Cloudimage by Scaleflex"
     },
     "manufacturerLink": {
@@ -34,7 +34,7 @@
       "en-GB": "https://scaleflex.com"
     },
     "description": {
-      "de-DE": "The easiest way to resize, compress, optimize and distribute your images lightning fast to your users on any device via CDN.",
+      "de-DE": "Cloudimage ändert, optimiert, komprimiert und verteilt Ihre Bilder blitzschnell über CDN - auf jedem Gerät, weltweit.",
       "en-GB": "The easiest way to resize, compress, optimize and distribute your images lightning fast to your users on any device via CDN."
     }
   }
