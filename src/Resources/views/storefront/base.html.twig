@@ -6,98 +6,101 @@
         {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
             <!-- Add lazyload library -->
             <script>
-                window.lazySizesConfig = window.lazySizesConfig || {};
-                window.lazySizesConfig.init = false;
+                document.addEventListener("DOMContentLoaded", function(event) {
+                    window.lazySizesConfig = window.lazySizesConfig || {};
+                    window.lazySizesConfig.init = false;
+                });
             </script>
-            <script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
+            <script async src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
         {% endif %}
 
         <!-- Add js-cloudimage-responsiv library -->
-        <script src="https://scaleflex.cloudimg.io/v7/plugins/js-cloudimage-responsive/4.8.12/plain/js-cloudimage-responsive.min.js?vh=1ee401&func=proxy"></script>
+        <script async src="https://scaleflex.cloudimg.io/v7/plugins/js-cloudimage-responsive/4.9.1/plain/js-cloudimage-responsive.min.js?vh=1ee401&func=proxy"></script>
         <!-- Initialize cloudimage responsive -->
-        <script>
-            let ciToken = "{{ config('ScaleflexCloudimage.config.ciToken') }}";
-            let explodedToken = ciToken.split(".");
-            let token = explodedToken.shift();
-            let domain = explodedToken.join('.');
-
-            let config = {
-                {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
-                lazyLoading: true,
-                {% endif %}
-                {% if config('ScaleflexCloudimage.config.ciUseOriginalUrl') and config('ScaleflexCloudimage.config.ciCustomLibrary') == '' %}
-                doNotReplaceURL: true,
-                {% else %}
-                doNotReplaceURL: false,
-                {% endif %}
-                params: {% if config('ScaleflexCloudimage.config.ciPreventImageUpsize') %}
-                    'org_if_sml=1&{{ config('ScaleflexCloudimage.config.ciCustomLibrary') }}'
-                {% else %}
-                    '{{ config('ScaleflexCloudimage.config.ciCustomLibrary') }}'
-                {% endif %},
-                {% if config('ScaleflexCloudimage.config.ciRemoveV7') %}
-                apiVersion: null,
-                {% endif %}
-                {% if config('ScaleflexCloudimage.config.ciMaximumPixelRatio') == '1' %}
-                devicePixelRatioList: [1],
-                {% endif %}
-                {% if config('ScaleflexCloudimage.config.ciMaximumPixelRatio') == '1.5' %}
-                devicePixelRatioList: [1, 1.5],
-                {% endif %}
-                {% if config('ScaleflexCloudimage.config.ciMaximumPixelRatio') == '2' %}
-                devicePixelRatioList: [1, 1.5, 2],
-                {% endif %}
-                {% if config('ScaleflexCloudimage.config.ciCustomFunction') %}
-                processQueryString: function (props) {{ config('ScaleflexCloudimage.config.ciCustomFunction') }},
-                {% endif %}
-                token: token
-            };
-
-            if (domain !== '') {
-                config.domain = domain;
-            }
-
-            window.ciResponsive = new window.CIResponsive(config);
-
-            {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
-            window.lazySizes.init();
-            {% endif %}
-        </script>
-
-        {#add script check http request is calling#}
         <script type='text/javascript'>
-            var s_ajaxListener = new Object();
-            s_ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
-            s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
-            s_ajaxListener.callback = function () {
-                let rerenderImage = setInterval(function () {
-                    window.ciResponsive.process();
-                }, 400);
+            document.addEventListener("DOMContentLoaded", function(event) {
+                //do work
+                let ciToken = "{{ config('ScaleflexCloudimage.config.ciToken') }}";
+                let explodedToken = ciToken.split(".");
+                let token = explodedToken.shift();
+                let domain = explodedToken.join('.');
 
-                setTimeout(function () {
-                    clearInterval(rerenderImage);
-                }, 5000);
-            }
+                let config = {
+                    {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
+                    lazyLoading: true,
+                    {% endif %}
+                    {% if config('ScaleflexCloudimage.config.ciUseOriginalUrl') and config('ScaleflexCloudimage.config.ciCustomLibrary') == '' %}
+                    doNotReplaceURL: true,
+                    {% else %}
+                    doNotReplaceURL: false,
+                    {% endif %}
+                    params: {% if config('ScaleflexCloudimage.config.ciPreventImageUpsize') %}
+                        'org_if_sml=1&{{ config('ScaleflexCloudimage.config.ciCustomLibrary') }}'
+                    {% else %}
+                    '{{ config('ScaleflexCloudimage.config.ciCustomLibrary') }}'
+                    {% endif %},
+                    {% if config('ScaleflexCloudimage.config.ciRemoveV7') %}
+                    apiVersion: null,
+                    {% endif %}
+                    {% if config('ScaleflexCloudimage.config.ciMaximumPixelRatio') == '1' %}
+                    devicePixelRatioList: [1],
+                    {% endif %}
+                    {% if config('ScaleflexCloudimage.config.ciMaximumPixelRatio') == '1.5' %}
+                    devicePixelRatioList: [1, 1.5],
+                    {% endif %}
+                    {% if config('ScaleflexCloudimage.config.ciMaximumPixelRatio') == '2' %}
+                    devicePixelRatioList: [1, 1.5, 2],
+                    {% endif %}
+                    {% if config('ScaleflexCloudimage.config.ciCustomFunction') %}
+                    processQueryString: function (props) {{ config('ScaleflexCloudimage.config.ciCustomFunction') }},
+                    {% endif %}
+                    token: token
+                };
 
-            XMLHttpRequest.prototype.open = function(a,b) {
-                if (!a) var a='';
-                if (!b) var b='';
-                s_ajaxListener.tempOpen.apply(this, arguments);
-                s_ajaxListener.method = a;
-                s_ajaxListener.url = b;
-                if (a.toLowerCase() == 'get') {
-                    s_ajaxListener.data = b.split('?');
-                    s_ajaxListener.data = s_ajaxListener.data[1];
+                if (domain !== '') {
+                    config.domain = domain;
                 }
-            }
 
-            XMLHttpRequest.prototype.send = function(a,b) {
-                if (!a) var a='';
-                if (!b) var b='';
-                s_ajaxListener.tempSend.apply(this, arguments);
-                if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
-                s_ajaxListener.callback();
-            }
+                window.ciResponsive = new window.CIResponsive(config);
+
+                {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
+                window.lazySizes.init();
+                {% endif %}
+
+                {#add script check http request is calling#}
+                var s_ajaxListener = new Object();
+                s_ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
+                s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
+                s_ajaxListener.callback = function () {
+                    let rerenderImage = setInterval(function () {
+                        window.ciResponsive.process();
+                    }, 400);
+
+                    setTimeout(function () {
+                        clearInterval(rerenderImage);
+                    }, 5000);
+                }
+
+                XMLHttpRequest.prototype.open = function(a,b) {
+                    if (!a) var a='';
+                    if (!b) var b='';
+                    s_ajaxListener.tempOpen.apply(this, arguments);
+                    s_ajaxListener.method = a;
+                    s_ajaxListener.url = b;
+                    if (a.toLowerCase() == 'get') {
+                        s_ajaxListener.data = b.split('?');
+                        s_ajaxListener.data = s_ajaxListener.data[1];
+                    }
+                }
+
+                XMLHttpRequest.prototype.send = function(a,b) {
+                    if (!a) var a='';
+                    if (!b) var b='';
+                    s_ajaxListener.tempSend.apply(this, arguments);
+                    if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
+                    s_ajaxListener.callback();
+                }
+            });
         </script>
     {% endif %}
 {% endblock %}
