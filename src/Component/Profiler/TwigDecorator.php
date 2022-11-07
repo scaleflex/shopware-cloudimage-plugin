@@ -23,9 +23,13 @@ class TwigDecorator extends Environment
         }
         $pageContent = parent::render($template, $context);
 
-        $jsonContext = json_encode($context['context']);
-        $arrContext = json_decode($jsonContext, true);
-        $salesChannelId = (string)$arrContext['salesChannel']['id'];
+        $salesChannelId = '';
+        if (isset($context['context'])) {
+            $jsonContext = json_encode($context['context']);
+            $arrContext = json_decode($jsonContext, true);
+            $salesChannelId = (string)$arrContext['salesChannel']['id'];
+        }
+
         return $this->overwriteImgTag($pageContent, $salesChannelId);
     }
 
