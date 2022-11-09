@@ -42,16 +42,20 @@ class TwigDecorator extends Environment
     {
         if ($salesChannelId != '') {
             $connection = \Shopware\Core\Kernel::getConnection();
-            $query = $connection->executeQuery("SELECT configuration_key, configuration_value 
+            $query = $connection->executeQuery("SELECT configuration_key, configuration_value, sales_channel_id 
                     FROM system_config 
-                    WHERE configuration_key LIKE 'ScaleflexCloudimage.config%' AND sales_channel_id = '" . Uuid::fromHexToBytes($salesChannelId) . "'");
+                    WHERE configuration_key LIKE 'ScaleflexCloudimage.config%'");
             $config = $query->fetchAllAssociative();
-
+            // AND sales_channel_id = '" . Uuid::fromHexToBytes($salesChannelId) . "'
             if (count($config) > 0) {
                 $arrConfig = [];
                 foreach ($config as $item) {
                     $itemValue = json_decode($item['configuration_value'], true);
-                    $arrConfig[$item['configuration_key']] = $itemValue['_value'];
+                    if (isset($arrConfig[$item['configuration_key']]) && $item['sales_channel_id'] == Uuid::fromHexToBytes($salesChannelId)) {
+                        $arrConfig[$item['configuration_key']] = $itemValue['_value'];
+                    } else if (!isset($arrConfig[$item['configuration_key']])) {
+                        $arrConfig[$item['configuration_key']] = $itemValue['_value'];
+                    }
                 }
 
                 if ($arrConfig['ScaleflexCloudimage.config.ciActivation'] && isset($arrConfig['ScaleflexCloudimage.config.ciToken'])
