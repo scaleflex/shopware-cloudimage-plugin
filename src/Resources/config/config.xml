@@ -4,76 +4,81 @@
 
     <card>
         <title>Activation</title>
+        <title lang="de-DE">Aktivierung</title>
         <input-field type="bool">
             <name>ciActivation</name>
             <label>Enable/Disable the Module</label>
-            <label lang="de-DE">Enable/Disable the Module</label>
+            <label lang="de-DE">aktivieren/deaktivieren des Moduls</label>
             <defaultValue>true</defaultValue>
         </input-field>
     </card>
 
     <card>
         <title>Token or CNAME</title>
+        <title lang="de-DE">Token oder CNAME</title>
         <input-field type="text">
             <name>ciToken</name>
             <label>Cloudimage token or custom domain</label>
-            <label lang="de-DE">Cloudimage token or custom domain</label>
+            <label lang="de-DE">Cloudimage-Token oder benutzerdefiniertes CNAME</label>
             <placeholder>abcdefgh or img.company.com</placeholder>
+            <placeholder lang="de-DE">abcdefgh oder img.firma.com</placeholder>
         </input-field>
     </card>
 
     <card>
         <title>Use Origin URL</title>
+        <title lang="de-DE">Ursprungs-URL verwenden</title>
         <input-field type="bool">
             <name>ciUseOriginalUrl</name>
             <label>If enabled, the plugin will only add query parameters to the image source URL, avoiding double CDN in
                 some cases, like if you have aliases configured.
             </label>
-            <label lang="de-DE">If enabled, the plugin will only add query parameters to the image source URL, avoiding double CDN in
-                some cases, like if you have aliases configured.</label>
+            <label lang="de-DE">Falls die URL für die Medien-Auslieferung in Ihrem Shopware die Cloudimage URL ist, dann muss diese Option aktiviert werden, damit das Modul nur die relevanten Bilder-Optimierungsparameter zur Bild-URL hinzufügt.</label>
         </input-field>
     </card>
 
     <card>
         <title>Lazy Loading</title>
+        <title lang="de-DE">Lazy Loading</title>
         <input-field type="bool">
             <name>ciLazyLoading</name>
             <label>If enabled, only images close to the current viewpoint will be loaded.</label>
-            <label lang="de-DE">If enabled, only images close to the current viewpoint will be loaded.</label>
+            <label lang="de-DE">Wenn diese Option aktiviert ist, werden nur Bilder geladen, die sich in der Nähe des aktuellen Blickpunkts des Nutzers befinden. Diese Option aktivieren, wenn Sie kein Lazyloading haben.</label>
         </input-field>
     </card>
 
     <card>
         <title>Ignore SVG Image</title>
+        <title lang="de-DE">SVG-Bild ignorieren</title>
         <input-field type="bool">
             <name>ciIgnoreSvgImage</name>
             <label>By default, No</label>
-            <label lang="de-DE">By default, No</label>
+            <label lang="de-DE">Standardmäßig: Nein.</label>
         </input-field>
     </card>
 
     <card>
         <title>Prevent Image Upsize</title>
+        <title lang="de-DE">Bildvergrößerung verhindern</title>
         <input-field type="bool">
             <name>ciPreventImageUpsize</name>
             <label>If you set Maximum "Pixel ratio" equal to 2, but some of your assets does not have min retina size(at
                 least 2560x960), please enable this to prevent image resized. By default, yes.
             </label>
-            <label lang="de-DE">If you set Maximum "Pixel ratio" equal to 2, but some of your assets does not have min retina size(at
-                least 2560x960), please enable this to prevent image resized. By default, yes.</label>
+            <label lang="de-DE">Standardmäßig: Ja. Wenn Sie das maximale "Pixelverhältnis" auf 2 setzen, aber ein gewisses Bild nicht die minimale Retina-Größe haben (mindestens 2560x960) ermöglicht diese Option eine Größenänderung des Bildes zu verhindern.</label>
             <defaultValue>true</defaultValue>
         </input-field>
     </card>
 
     <card>
         <title>Image Quality</title>
+        <title lang="de-DE">Bildqualität</title>
         <input-field type="single-select">
             <name>ciImageQuality</name>
             <label>The smaller the value, the more your image will compressed. Careful - the quality of the image will
                 decrease as well. By default, 90.
             </label>
-            <label lang="de-DE">The smaller the value, the more your image will compressed. Careful - the quality of the image will
-                decrease as well. By default, 90.</label>
+            <label lang="de-DE">Standardmäßig: 90. Je kleiner der Wert, desto stärker wird Ihr Bild komprimiert. Vorsicht - die visuelle Qualität des Bildes wird dadurch ebenfalls schlechter.</label>
             <options>
                 <option>
                     <id>100</id>
@@ -162,6 +167,7 @@
 
     <card>
         <title>Maximum "Pixel Ratio"</title>
+        <title lang="de-DE">Maximales "Pixel-Verhältnis"</title>
         <input-field type="single-select">
             <name>ciMaximumPixelRatio</name>
             <options>
@@ -182,36 +188,39 @@
             <label>
                 List of supported device pixel ratios, eg 2 for Retina devices.
             </label>
-            <label lang="de-DE">List of supported device pixel ratios, eg 2 for Retina devices.</label>
+            <label lang="de-DE">Liste der unterstützten Geräte-Pixelverhältnisse, z. B. 2 für Retina-Geräte.</label>
         </input-field>
     </card>
 
     <card>
         <title>Remove V7</title>
+        <title lang="de-DE">V7 entfernen</title>
         <input-field type="bool">
             <name>ciRemoveV7</name>
             <label>Removes the "/v7" part in URL format. Activate for token created after October 20th, 2021.</label>
-            <label lang="de-DE">Removes the "/v7" part in URL format. Activate for token created after October 20th, 2021.</label>
+            <label lang="de-DE">Standardmäßig: Ja. Entfernt den Teil "/v7" im URL-Format. Diese Option muss für Tokens aktiviert werden, die nach dem 20. Oktober 2021 erstellt wurden.</label>
             <defaultValue>true</defaultValue>
         </input-field>
     </card>
 
     <card>
         <title>Custom js function</title>
+        <title lang="de-DE">Benutzerdefinierte js-Funktion</title>
         <input-field type="textarea">
             <name>ciCustomFunction</name>
             <label>The valid js function starting with { and finishing with }</label>
-            <label lang="de-DE">The valid js function starting with { and finishing with }</label>
+            <label lang="de-DE">Eine zusätzliche und optionale gültige js-Funktion, die mit { beginnt und mit } endet</label>
             <placeholder>{ console.log(props); }</placeholder>
         </input-field>
     </card>
 
     <card>
         <title>Custom library options</title>
+        <title lang="de-DE">Standard Bilder-Transformation</title>
         <input-field type="text">
             <name>ciCustomLibrary</name>
-            <label>Modifies the library URL (to add transformations)</label>
-            <label lang="de-DE">Modifies the library URL (to add transformations)</label>
+            <label>Automatically adds Cloudimage parameters for all images, e.g. watermark=1 to put a watermark on all images. The list of all available parameters can be found on docs.cloudimage.io.</label>
+            <label lang="de-DE">Fügt Cloudimage Parameter für alle Bilder automatisch hinzu, z. B. watermark=1 um ein Wasserzeichen auf alle Bilder zu setzen. Die Liste aller verfügbaren Parameter ist auf docs.cloudimage.io zu finden.</label>
             <placeholder>grey=1</placeholder>
         </input-field>
     </card>

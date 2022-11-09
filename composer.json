@@ -3,7 +3,7 @@
   "description": "Cloudimage by Scaleflex",
   "keywords": ["shopware6", "shopware-6", "cloudimage", "cdn", "shopware-plugin"],
   "type": "shopware-platform-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "proprietary",
   "autoload": {
     "psr-4": {
