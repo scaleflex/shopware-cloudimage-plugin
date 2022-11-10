@@ -61,44 +61,54 @@
                     config.domain = domain;
                 }
 
-                window.ciResponsive = new window.CIResponsive(config);
+                if (window.CIResponsive) {
+                    ciRender();
+                } else {
+                    setTimeout(function () {
+                        ciRender();
+                    }, 400);
+                }
 
                 {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
                 window.lazySizes.init();
                 {% endif %}
 
-                {#add script check http request is calling#}
-                var s_ajaxListener = new Object();
-                s_ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
-                s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
-                s_ajaxListener.callback = function () {
-                    let rerenderImage = setInterval(function () {
-                        window.ciResponsive.process();
-                    }, 400);
+                function ciRender() {
+                    window.ciResponsive = new window.CIResponsive(config);
 
-                    setTimeout(function () {
-                        clearInterval(rerenderImage);
-                    }, 5000);
-                }
+                    {#add script check http request is calling#}
+                    var s_ajaxListener = new Object();
+                    s_ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
+                    s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
+                    s_ajaxListener.callback = function () {
+                        let rerenderImage = setInterval(function () {
+                            window.ciResponsive.process();
+                        }, 400);
 
-                XMLHttpRequest.prototype.open = function(a,b) {
-                    if (!a) var a='';
-                    if (!b) var b='';
-                    s_ajaxListener.tempOpen.apply(this, arguments);
-                    s_ajaxListener.method = a;
-                    s_ajaxListener.url = b;
-                    if (a.toLowerCase() == 'get') {
-                        s_ajaxListener.data = b.split('?');
-                        s_ajaxListener.data = s_ajaxListener.data[1];
+                        setTimeout(function () {
+                            clearInterval(rerenderImage);
+                        }, 5000);
                     }
-                }
 
-                XMLHttpRequest.prototype.send = function(a,b) {
-                    if (!a) var a='';
-                    if (!b) var b='';
-                    s_ajaxListener.tempSend.apply(this, arguments);
-                    if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
-                    s_ajaxListener.callback();
+                    XMLHttpRequest.prototype.open = function(a,b) {
+                        if (!a) var a='';
+                        if (!b) var b='';
+                        s_ajaxListener.tempOpen.apply(this, arguments);
+                        s_ajaxListener.method = a;
+                        s_ajaxListener.url = b;
+                        if (a.toLowerCase() == 'get') {
+                            s_ajaxListener.data = b.split('?');
+                            s_ajaxListener.data = s_ajaxListener.data[1];
+                        }
+                    }
+
+                    XMLHttpRequest.prototype.send = function(a,b) {
+                        if (!a) var a='';
+                        if (!b) var b='';
+                        s_ajaxListener.tempSend.apply(this, arguments);
+                        if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
+                        s_ajaxListener.callback();
+                    }
                 }
             });
         </script>
