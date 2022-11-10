@@ -69,10 +69,6 @@
                     }, 400);
                 }
 
-                {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
-                window.lazySizes.init();
-                {% endif %}
-
                 function ciRender() {
                     window.ciResponsive = new window.CIResponsive(config);
 
@@ -109,6 +105,10 @@
                         if(s_ajaxListener.method.toLowerCase() == 'post')s_ajaxListener.data = a;
                         s_ajaxListener.callback();
                     }
+
+                    {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
+                    window.lazySizes.init();
+                    {% endif %}
                 }
             });
         </script>
