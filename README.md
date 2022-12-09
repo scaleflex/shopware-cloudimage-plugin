@@ -1,17 +1,20 @@
 # Cloudimage Module
 
-## Download Cloudimage module
+## Download and Installation Cloudimage module
 
+### Installation from Github
 - Step 1: Download the latest version [Download Latest release of Module](https://github.com/scaleflex/shopware-cloudimage-plugin/releases)
 - Step 2: Zip the file with the name "cloudimage.zip"
 - Step 3: In Admin go to Extensions -> My extensions -> Upload extension
   ![](docs/upload-extension.png)
   
-## Installation
+### Or installation from Store
 
 - Step 1: In Admin go to Extensions -> Store -> Catalog search for "Clouldimage by Scaleflex"
-- Step 2: Click into extension and after that "Add extension"
-- Step 3: Go to Extensions -> My extensions -> Cloudimage by Scaleflex -> Click on Configure on "Cloudimage by Scaleflex"
+  ![](docs/search.png)
+- Step 2: Click on extension and after that "Add extension"
+  ![](docs/add-extension.png)
+- Step 3: Go to Extensions -> My extensions -> Cloudimage by Scaleflex -> Click on Configuration
   ![](docs/configuration.png)
 - Step 4: Update configuration and activate the Module, then your site is ready to go.
   ![](docs/setting.png)
