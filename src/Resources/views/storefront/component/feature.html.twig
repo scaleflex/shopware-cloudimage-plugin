@@ -1,7 +1,9 @@
-{% sw_extends '@Storefront/storefront/base.html.twig' %}
+{% sw_extends '@Storefront/storefront/component/feature.html.twig' %}
 
-{% block base_script_jquery %}
+{% block component_head_feature %}
+
     {{ parent() }}
+
     {% if config('ScaleflexCloudimage.config.ciActivation') and config('ScaleflexCloudimage.config.ciToken') != '' %}
         {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
             <!-- Add lazyload library -->
