@@ -75,7 +75,7 @@ class TwigDecorator extends Environment
                         $ignoreSvg = (isset($arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'])) ? $arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'] : false;
 
                         foreach ($dom->getElementsByTagName('img') as $element) {
-                            /** @var DOMElement $element */
+                            /** @var \DOMElement $element */
                             if ($element->hasAttribute('src')) {
                                 if ($ignoreSvg && strtolower(pathinfo($element->getAttribute('src'), PATHINFO_EXTENSION)) === 'svg') {
                                     continue;
