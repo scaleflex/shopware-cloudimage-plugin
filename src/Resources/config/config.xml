@@ -204,6 +204,19 @@
     </card>
 
     <card>
+        <title>Image Size Attributes</title>
+        <title lang="de-DE">Bildgrößenattribute</title>
+        <input-field type="text">
+            <name>ciImageSizeAttributes</name>
+            <label>Used to calculate width and height of images</label>
+            <label lang="de-DE">Wird verwendet, um Breite und Höhe von Bildern zu berechnen</label>
+            <placeholder>Possible values: 'use', 'ignore', 'take-ratio' | Default: 'use'</placeholder>
+            <placeholder lang="de-DE">Mögliche Werte: 'use', 'ignore', 'take-ratio' | Standard: 'benutzen'</placeholder>
+            <defaultValue>use</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
         <title>Custom js function</title>
         <title lang="de-DE">Benutzerdefinierte js-Funktion</title>
         <input-field type="textarea">
