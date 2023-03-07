@@ -26,17 +26,34 @@ class MediaSubscriber implements EventSubscriberInterface
 
     public function onMediaLoaded(EntityLoadedEvent $event): void
     {
-        $ciStandardMode = $this->systemConfigService->get('ScaleflexCloudimage.config.ciStandardMode');
-        if ($ciStandardMode) {
-            $tokenOrCname = $this->systemConfigService->get('ScaleflexCloudimage.config.ciToken');
-            $ciUrl = 'https://' . $tokenOrCname . '.cloudimg.io/';
-            if (strpos($tokenOrCname, '.')) {
-                $ciUrl = 'https://' . $tokenOrCname . '/';
+        $context = (array)$event->getContext()->getSource();
+        $isAdmin = false;
+        foreach ($context as $key => $value) {
+            if (strpos($key,'isAdmin')) {
+                $isAdmin = true;
             }
-            /** @var MediaEntity $mediaEntity */
-            foreach ($event->getEntities() as $mediaEntity) {
-                $imageUrl = $mediaEntity->getUrl();
-                $mediaEntity->setUrl($ciUrl . $imageUrl);
+        }
+
+        if (!$isAdmin) {
+            $ciStandardMode = $this->systemConfigService->get('ScaleflexCloudimage.config.ciStandardMode');
+            if ($ciStandardMode) {
+
+                $tokenOrCname = $this->systemConfigService->get('ScaleflexCloudimage.config.ciToken');
+
+                $v7 = '';
+                if (!$this->systemConfigService->get('ScaleflexCloudimage.config.ciRemoveV7')) {
+                    $v7 = 'v7/';
+                }
+
+                $ciUrl = 'https://' . $tokenOrCname . '.cloudimg.io/' . $v7;
+                if (strpos($tokenOrCname, '.')) {
+                    $ciUrl = 'https://' . $tokenOrCname . '/' . $v7;
+                }
+                /** @var MediaEntity $mediaEntity */
+                foreach ($event->getEntities() as $mediaEntity) {
+                    $imageUrl = $mediaEntity->getUrl();
+                    $mediaEntity->setUrl($ciUrl . $imageUrl);
+                }
             }
         }
     }
