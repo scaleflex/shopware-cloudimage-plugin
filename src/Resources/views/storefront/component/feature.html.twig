@@ -4,7 +4,7 @@
 
     {{ parent() }}
 
-    {% if config('ScaleflexCloudimage.config.ciActivation') and config('ScaleflexCloudimage.config.ciToken') != '' %}
+    {% if config('ScaleflexCloudimage.config.ciActivation') and config('ScaleflexCloudimage.config.ciToken') != '' and config('ScaleflexCloudimage.config.ciStandardMode') == false %}
         {% if config('ScaleflexCloudimage.config.ciLazyLoading') %}
             <!-- Add lazyload library -->
             <script>

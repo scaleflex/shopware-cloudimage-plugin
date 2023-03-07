@@ -59,7 +59,7 @@ class TwigDecorator extends Environment
                 }
 
                 if ($arrConfig['ScaleflexCloudimage.config.ciActivation'] && isset($arrConfig['ScaleflexCloudimage.config.ciToken'])
-                    && $arrConfig['ScaleflexCloudimage.config.ciToken'] != '') {
+                    && $arrConfig['ScaleflexCloudimage.config.ciToken'] != '' && !$arrConfig['ScaleflexCloudimage.config.ciStandardMode']) {
                     if (stripos($pageContent, '<img') !== false) {
                         $dom = new \DOMDocument();
                         $useErrors = libxml_use_internal_errors(true);

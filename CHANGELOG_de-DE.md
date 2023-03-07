@@ -2,3 +2,5 @@
 - Skriptspeicherort ändern
 # 1.0.3
 - Konfigurationsoption "Bildgrößenattribute" hinzufügen
+# 1.0.4
+- Konfigurationsoption "Standardmodus" hinzufügen

@@ -20,7 +20,8 @@
   ![](docs/setting.png)
   
 ## Configuration
-- Activation: Enable/Disable the module
+- Activation: Enable/Disable the module.
+- Standard Mode: Replace image URLs not using any Javascript or Javascript library.
 - Token or CNAME: Please enter your cloudimage token here (eg: abcdefgh), or your complete CNAME (eg. media.company.com) if the configuration is already validated in your Cloudimage Admin.
 - Use origin URL: If enabled, the module will only add query parameters to the image source URL without prefixing it with `{token}.cloudimg.io`.
 - Lazy Load: If enabled, only images close to the current viewpoint will be loaded.
@@ -29,6 +30,7 @@
 - Image Quality: The smaller the value, the more your image will be compressed. Careful — the quality of the image will decrease as well. By default, 90.
 - Maximum Pixel Ratio: The maximum pixel ratio of the image. By default, 2.
 - Remove V7: If enabled, the module will remove the "/v7" part in URL format. Activate for token created after October 20th 2021.
+- Image Size Attributes: Used to calculate width and height of images [(Read more)](https://github.com/scaleflex/js-cloudimage-responsive#imagesizeattributes).
 
 **Advanced User**
 - Custom JS Function: The valid js function starting with { and finishing with }

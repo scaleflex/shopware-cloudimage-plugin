@@ -14,6 +14,17 @@
     </card>
 
     <card>
+        <title>Standard Mode</title>
+        <title lang="de-DE">Standart Modus</title>
+        <input-field type="bool">
+            <name>ciStandardMode</name>
+            <label>Replace image URLs not using any Javascript or Javascript library.</label>
+            <label lang="de-DE">Ersetzen Sie Bild-URLs, die kein Javascript oder keine Javascript-Bibliothek verwenden.</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
         <title>Token or CNAME</title>
         <title lang="de-DE">Token oder CNAME</title>
         <input-field type="text">
