@@ -4,3 +4,5 @@
 - Konfigurationsoption "Bildgrößenattribute" hinzufügen
 # 1.0.4
 - Konfigurationsoption "Standardmodus" hinzufügen
+# 1.0.5
+- Verhindern Sie das Ändern von Bild-URLs im Admin-Dashboard

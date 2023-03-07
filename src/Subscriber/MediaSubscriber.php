@@ -37,7 +37,6 @@ class MediaSubscriber implements EventSubscriberInterface
         if (!$isAdmin) {
             $ciStandardMode = $this->systemConfigService->get('ScaleflexCloudimage.config.ciStandardMode');
             if ($ciStandardMode) {
-
                 $tokenOrCname = $this->systemConfigService->get('ScaleflexCloudimage.config.ciToken');
 
                 $v7 = '';

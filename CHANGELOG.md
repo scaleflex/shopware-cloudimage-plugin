@@ -4,3 +4,5 @@
 - Add config option "Image Size Attributes"
 # 1.0.4
 - Add config option "Standard Mode"
+# 1.0.5
+- Prevent change image URLs in admin dashboard
