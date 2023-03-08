@@ -6,5 +6,5 @@
 - Add config option "Standard Mode"
 # 1.0.5
 - Prevent change image URLs in admin dashboard
-# 1.0.5.1
+# 1.0.6
 - Fixed issue with srcset attribute

@@ -6,5 +6,5 @@
 - Konfigurationsoption "Standardmodus" hinzufügen
 # 1.0.5
 - Verhindern Sie das Ändern von Bild-URLs im Admin-Dashboard
-# 1.0.5.1
+# 1.0.6
 - Problem mit dem srcset-Attribut behoben
