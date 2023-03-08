@@ -59,7 +59,7 @@ class TwigDecorator extends Environment
                 }
 
                 if ($arrConfig['ScaleflexCloudimage.config.ciActivation'] && isset($arrConfig['ScaleflexCloudimage.config.ciToken'])
-                    && $arrConfig['ScaleflexCloudimage.config.ciToken'] != '' && !$arrConfig['ScaleflexCloudimage.config.ciStandardMode']) {
+                    && $arrConfig['ScaleflexCloudimage.config.ciToken'] != '') {
                     if (stripos($pageContent, '<img') !== false) {
                         $dom = new \DOMDocument();
                         $useErrors = libxml_use_internal_errors(true);
@@ -74,20 +74,56 @@ class TwigDecorator extends Environment
 
                         $ignoreSvg = (isset($arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'])) ? $arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'] : false;
 
+                        $tokenOrCname = $arrConfig['ScaleflexCloudimage.config.ciToken'];
+
+                        $v7 = '';
+                        if (!$arrConfig['ScaleflexCloudimage.config.ciRemoveV7']) {
+                            $v7 = 'v7/';
+                        }
+
+                        $ciUrl = 'https://' . $tokenOrCname . '.cloudimg.io/' . $v7;
+                        if (strpos($tokenOrCname, '.')) {
+                            $ciUrl = 'https://' . $tokenOrCname . '/' . $v7;
+                        }
+
                         foreach ($dom->getElementsByTagName('img') as $element) {
                             /** @var \DOMElement $element */
-                            if ($element->hasAttribute('src')) {
-                                if ($ignoreSvg && strtolower(pathinfo($element->getAttribute('src'), PATHINFO_EXTENSION)) === 'svg') {
-                                    continue;
+                            if ($arrConfig['ScaleflexCloudimage.config.ciStandardMode']) {
+                                if ($element->hasAttribute('src')) {
+                                    if ($ignoreSvg && strtolower(pathinfo($element->getAttribute('src'), PATHINFO_EXTENSION)) === 'svg') {
+                                        continue;
+                                    }
+
+                                    $imgURL = $element->getAttribute('src') . $quality;
+                                    $element->setAttribute('src', $ciUrl . $imgURL);
+                                    $replaceHtml = true;
+
+                                    if ($element->hasAttribute('srcset')) {
+                                        $srcset = $element->getAttribute('srcset');
+                                        $srcsetArray = explode(' ', $srcset);
+
+                                        foreach ($srcsetArray as $item) {
+                                            if (strpos($item, '//')) {
+                                                $srcset = str_replace($item, $ciUrl . $item, $srcset);
+                                            }
+                                        }
+                                        $element->setAttribute('srcset', $srcset);
+                                    }
+                                }
+                            } else {
+                                if ($element->hasAttribute('src')) {
+                                    if ($ignoreSvg && strtolower(pathinfo($element->getAttribute('src'), PATHINFO_EXTENSION)) === 'svg') {
+                                        continue;
+                                    }
+
+                                    $element->setAttribute('ci-src', $element->getAttribute('src') . $quality);
+                                    $element->removeAttribute('src');
+                                    $replaceHtml = true;
                                 }
 
-                                $element->setAttribute('ci-src', $element->getAttribute('src') . $quality);
-                                $element->removeAttribute('src');
-                                $replaceHtml = true;
-                            }
-
-                            if ($element->hasAttribute('srcset')) {
-                                $element->removeAttribute('srcset');
+                                if ($element->hasAttribute('srcset')) {
+                                    $element->removeAttribute('srcset');
+                                }
                             }
                         }
 
