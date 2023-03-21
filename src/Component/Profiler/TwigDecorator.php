@@ -66,7 +66,6 @@ class TwigDecorator extends Environment
                         $dom->loadHTML(mb_convert_encoding($pageContent, 'HTML-ENTITIES', 'UTF-8'));
                         libxml_use_internal_errors($useErrors);
                         $dom->preserveWhiteSpace = false;
-                        $replaceHtml = false;
                         $quality = '';
                         if (isset($arrConfig['ScaleflexCloudimage.config.ciImageQuality']) && $arrConfig['ScaleflexCloudimage.config.ciImageQuality'] < 100) {
                             $quality = '?q=' . $arrConfig['ScaleflexCloudimage.config.ciImageQuality'];
@@ -74,66 +73,8 @@ class TwigDecorator extends Environment
 
                         $ignoreSvg = (isset($arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'])) ? $arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'] : false;
 
-                        $tokenOrCname = $arrConfig['ScaleflexCloudimage.config.ciToken'];
-
-                        $v7 = '';
-                        if (!$arrConfig['ScaleflexCloudimage.config.ciRemoveV7']) {
-                            $v7 = 'v7/';
-                        }
-
-                        $ciUrl = 'https://' . $tokenOrCname . '.cloudimg.io/' . $v7;
-                        if (strpos($tokenOrCname, '.')) {
-                            $ciUrl = 'https://' . $tokenOrCname . '/' . $v7;
-                        }
-
                         foreach ($dom->getElementsByTagName('img') as $element) {
                             /** @var \DOMElement $element */
-                            /*
-                            if ($arrConfig['ScaleflexCloudimage.config.ciStandardMode']) {
-                                if ($element->hasAttribute('src')) {
-                                    if ($ignoreSvg && strtolower(pathinfo($element->getAttribute('src'), PATHINFO_EXTENSION)) === 'svg') {
-                                        continue;
-                                    }
-
-                                    $imgURL = $element->getAttribute('src') . $quality;
-                                    $element->setAttribute('src', $ciUrl . $imgURL);
-                                    $replaceHtml = true;
-
-                                    if ($element->hasAttribute('srcset')) {
-                                        $srcset = $element->getAttribute('srcset');
-                                        $srcsetArray = explode(' ', $srcset);
-
-                                        foreach ($srcsetArray as $item) {
-                                            if (strpos($item, '//')) {
-                                                $srcset = str_replace($item, $ciUrl . $item, $srcset);
-                                            }
-                                        }
-                                        $element->setAttribute('srcset', $srcset);
-                                    }
-                                }
-                            } else {
-                                if ($element->hasAttribute('src')) {
-                                    if ($ignoreSvg && strtolower(pathinfo($element->getAttribute('src'), PATHINFO_EXTENSION)) === 'svg') {
-                                        continue;
-                                    }
-
-                                    $element->setAttribute('ci-src', $element->getAttribute('src') . $quality);
-                                    $element->removeAttribute('src');
-                                    $replaceHtml = true;
-                                }
-
-                                if ($element->hasAttribute('srcset')) {
-                                    $element->removeAttribute('srcset');
-                                }
-                            }
-                            */
-                            if ($element->hasAttribute('src')) {
-                                $imgSrc = $element->getAttribute('src');
-                                $imgSrc = str_replace('%3A', ':', $imgSrc);
-                                $element->setAttribute('src', $imgSrc);
-                                $replaceHtml = true;
-                            }
-
                             if (!$arrConfig['ScaleflexCloudimage.config.ciStandardMode']) {
                                 if ($element->hasAttribute('src')) {
                                     if ($ignoreSvg && strtolower(pathinfo($element->getAttribute('src'), PATHINFO_EXTENSION)) === 'svg') {
@@ -142,7 +83,6 @@ class TwigDecorator extends Environment
 
                                     $element->setAttribute('ci-src', $element->getAttribute('src') . $quality);
                                     $element->removeAttribute('src');
-                                    $replaceHtml = true;
                                 }
                             }
 
@@ -151,11 +91,9 @@ class TwigDecorator extends Environment
                             }
                         }
 
-                        if ($replaceHtml) {
-                            $pageContent = $dom->saveHTML($dom->documentElement);
-                            $pageContent = str_replace('https%3A', 'https:', $pageContent);
-                            $pageContent = str_ireplace(['<html><body>', '</body></html>'], '', $pageContent);
-                        }
+                        $pageContent = $dom->saveHTML($dom->documentElement);
+                        $pageContent = str_replace('https%3A', 'https:', $pageContent);
+                        $pageContent = str_ireplace(['<html><body>', '</body></html>'], '', $pageContent);
                     }
                 }
             }
