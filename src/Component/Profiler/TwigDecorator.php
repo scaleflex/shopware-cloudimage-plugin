@@ -24,13 +24,15 @@ class TwigDecorator extends Environment
         $pageContent = parent::render($template, $context);
 
         $salesChannelId = '';
+        $currentDomain = '';
         if (isset($context['context'])) {
             $jsonContext = json_encode($context['context']);
             $arrContext = json_decode($jsonContext, true);
             $salesChannelId = (string)$arrContext['salesChannel']['id'];
+            $currentDomain = $arrContext['salesChannel']['domains'][0]['url'];
         }
 
-        return $this->overwriteImgTag($pageContent, $salesChannelId);
+        return $this->overwriteImgTag($pageContent, $salesChannelId, $currentDomain);
     }
 
     public function getTemplateData(): array
@@ -38,7 +40,7 @@ class TwigDecorator extends Environment
         return $this->renders;
     }
 
-    private function overwriteImgTag(string $pageContent, string $salesChannelId): string
+    private function overwriteImgTag(string $pageContent, string $salesChannelId, string $currentDomain): string
     {
         if ($salesChannelId != '') {
             $connection = \Shopware\Core\Kernel::getConnection();
@@ -72,10 +74,25 @@ class TwigDecorator extends Environment
                         }
 
                         $ignoreSvg = (isset($arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'])) ? $arrConfig['ScaleflexCloudimage.config.ciIgnoreSvgImage'] : false;
+                        $ciToken = $arrConfig['ScaleflexCloudimage.config.ciToken'];
+                        $ciRemoveV7 = $arrConfig['ScaleflexCloudimage.config.ciRemoveV7'];
+                        $v7 = '';
+                        if (!$ciRemoveV7) {
+                            $v7 = 'v7/';
+                        }
+
+                        $ciUrl = 'https://' . $ciToken . '.cloudimg.io/' . $v7;
+                        if (strpos($ciToken, '.')) {
+                            $ciUrl = 'https://' . $ciToken . '/' . $v7;
+                        }
+
+                        $ciImageQuality = $arrConfig['ScaleflexCloudimage.config.ciImageQuality'];
+                        $ciCustomLibrary = $arrConfig['ScaleflexCloudimage.config.ciCustomLibrary'];
+                        $ciPreventImageUpsize = $arrConfig['ScaleflexCloudimage.config.ciPreventImageUpsize'];
 
                         foreach ($dom->getElementsByTagName('img') as $element) {
                             /** @var \DOMElement $element */
-                            if (!$arrConfig['ScaleflexCloudimage.config.ciStandardMode']) {
+                            if ($arrConfig['ScaleflexCloudimage.config.ciStandardMode'] == false) {
                                 if ($element->hasAttribute('src')) {
                                     if ($ignoreSvg && strtolower(pathinfo($element->getAttribute('src'), PATHINFO_EXTENSION)) === 'svg') {
                                         continue;
@@ -83,11 +100,69 @@ class TwigDecorator extends Environment
 
                                     $element->setAttribute('ci-src', $element->getAttribute('src') . $quality);
                                     $element->removeAttribute('src');
-                                }
-                            }
 
-                            if ($element->hasAttribute('srcset')) {
-                                $element->removeAttribute('srcset');
+                                    if ($element->hasAttribute('srcset')) {
+                                        $element->removeAttribute('srcset');
+                                    }
+                                } else {
+                                    if ($element->hasAttribute('srcset')) {
+                                        $srcset = $element->getAttribute('srcset');
+                                        $srcsetArray = explode(' ', $srcset);
+
+                                        if ($ignoreSvg && strtolower(pathinfo($srcsetArray[0], PATHINFO_EXTENSION)) === 'svg') {
+                                            continue;
+                                        }
+
+                                        if (!strpos($srcset, 'http://') && !strpos($srcset, 'https://')) {
+                                            $srcsetArray[0] = $currentDomain . $srcsetArray[0];
+                                        }
+
+                                        $element->setAttribute('ci-src', $srcsetArray[0] . $quality);
+                                        $element->removeAttribute('srcset');
+                                    }
+                                }
+                            } else {
+                                if (!$element->hasAttribute('src')) {
+                                    if ($element->hasAttribute('srcset')) {
+                                        $srcset = $element->getAttribute('srcset');
+                                        $srcsetArray = explode(' ', $srcset);
+
+                                        if ($ignoreSvg && strtolower(pathinfo($srcsetArray[0], PATHINFO_EXTENSION)) === 'svg') {
+                                            continue;
+                                        }
+
+                                        if (!strpos($srcset, 'http://') && !strpos($srcset, 'https://')) {
+                                            $srcsetArray[0] = $currentDomain . $srcsetArray[0];
+                                        }
+
+                                        $url = $srcsetArray[0];
+                                        if ($ciImageQuality != '' && $ciImageQuality <= 100) {
+                                            $quality = '?q=' . $ciImageQuality;
+                                            if (strpos($url, '?')) {
+                                                $quality = '&q=' . $ciImageQuality;
+                                            }
+                                            $url = $url . $quality;
+                                        }
+
+                                        if ($ciCustomLibrary != '') {
+                                            if (strpos($url, '?')) {
+                                                $url = $url . '&' . $ciCustomLibrary;
+                                            } else {
+                                                $url = $url . '?' . $ciCustomLibrary;
+                                            }
+                                        }
+
+                                        if ($ciPreventImageUpsize) {
+                                            if (strpos($url, '?')) {
+                                                $url = $url . '&org_if_sml=1';
+                                            } else {
+                                                $url = $url . '?org_if_sml=1';
+                                            }
+                                        }
+                                        $element->setAttribute('src', $ciUrl . $url);
+                                        $element->removeAttribute('srcset');
+                                    }
+                                }
                             }
                         }
 

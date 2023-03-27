@@ -28,19 +28,12 @@ class ScaleflexCloudimage extends Plugin
         $config->set('ScaleflexCloudimage.config.ciRemoveV7', true);
         $config->set('ScaleflexCloudimage.config.ciPreventImageUpsize', true);
         $config->set('ScaleflexCloudimage.config.ciActivation', true);
+        $config->set('ScaleflexCloudimage.config.ciCustomLibrary', '');
+        $config->set('ScaleflexCloudimage.config.ciImageSizeAttributes', 'use');
     }
 
     public function activate(ActivateContext $activateContext): void
     {
         parent::activate($activateContext);
-
-        $config = $this->container->get('Shopware\Core\System\SystemConfig\SystemConfigService');
-
-        //set the specified values as defaults
-        $config->set('ScaleflexCloudimage.config.ciMaximumPixelRatio', "2");
-        $config->set('ScaleflexCloudimage.config.ciImageQuality', "90");
-        $config->set('ScaleflexCloudimage.config.ciRemoveV7', true);
-        $config->set('ScaleflexCloudimage.config.ciPreventImageUpsize', true);
-        $config->set('ScaleflexCloudimage.config.ciActivation', true);
     }
 }
