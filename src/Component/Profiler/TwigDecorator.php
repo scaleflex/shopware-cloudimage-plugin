@@ -168,6 +168,7 @@ class TwigDecorator extends Environment
 
                         $pageContent = $dom->saveHTML($dom->documentElement);
                         $pageContent = str_replace('https%3A', 'https:', $pageContent);
+                        $pageContent = str_replace('http%3A', 'http:', $pageContent);
                         $pageContent = str_ireplace(['<html><body>', '</body></html>'], '', $pageContent);
                     }
                 }

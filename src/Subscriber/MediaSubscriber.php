@@ -8,17 +8,20 @@ use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Shopware\Core\Content\Media\MediaEvents;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Shopware\Core\System\SalesChannel\Context\CachedSalesChannelContextFactory;
 
 class MediaSubscriber implements EventSubscriberInterface
 {
     private $systemConfigService;
-
+    private $contextFactory;
 
     public function __construct(
-        SystemConfigService $systemConfigService
+        SystemConfigService $systemConfigService,
+        CachedSalesChannelContextFactory $contextFactory
     )
     {
         $this->systemConfigService = $systemConfigService;
+        $this->contextFactory = $contextFactory;
     }
 
     public static function getSubscribedEvents(): array
@@ -46,9 +49,22 @@ class MediaSubscriber implements EventSubscriberInterface
         }
 
         $context = (array)$event->getContext()->getSource();
+        $SalesChannelId = '';
         foreach ($context as $key => $value) {
             if (strpos($key,'isAdmin')) {
                 return;
+            } else {
+                $SalesChannelId = $value;
+            }
+        }
+
+        $contextFactory = $this->contextFactory->create('', $SalesChannelId);
+        $domain = (array)$contextFactory->getSalesChannel()->getDomains()->first();
+        $currentDomain = '';
+        foreach ($domain as $key => $value) {
+            if (strpos($key,'url')) {
+                $currentDomain = $value;
+                break;
             }
         }
 
@@ -67,12 +83,14 @@ class MediaSubscriber implements EventSubscriberInterface
         $ciPreventImageUpsize = $this->systemConfigService->get('ScaleflexCloudimage.config.ciPreventImageUpsize');
         $ciCustomLibrary = $this->systemConfigService->get('ScaleflexCloudimage.config.ciCustomLibrary');
 
-
         /** @var MediaEntity $mediaEntity */
         foreach ($event->getEntities() as $mediaEntity) {
             $fileExtension = $mediaEntity->getFileExtension();
             if (in_array($fileExtension, ['png', 'jpg', 'svg', 'jpeg', 'gif', 'tiff'])) {
                 $url = $mediaEntity->getUrl();
+                if (!strpos($url, 'http') && !strpos($url, 'https')) {
+                    $url = $currentDomain . $url;
+                }
 
                 if ($ciImageQuality != '' && $ciImageQuality <= 100) {
                     $quality = '?q=' . $ciImageQuality;
