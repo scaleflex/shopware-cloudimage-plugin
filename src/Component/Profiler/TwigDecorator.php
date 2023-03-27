@@ -98,7 +98,12 @@ class TwigDecorator extends Environment
                                         continue;
                                     }
 
-                                    $element->setAttribute('ci-src', $element->getAttribute('src') . $quality);
+                                    $src = $element->getAttribute('src');
+                                    if (strpos($src, 'http://') == '' && strpos($src, 'https://') == '') {
+                                        $src = $currentDomain . $src;
+                                    }
+
+                                    $element->setAttribute('ci-src', $src . $quality);
                                     $element->removeAttribute('src');
 
                                     if ($element->hasAttribute('srcset')) {
@@ -113,7 +118,7 @@ class TwigDecorator extends Environment
                                             continue;
                                         }
 
-                                        if (!strpos($srcset, 'http://') && !strpos($srcset, 'https://')) {
+                                        if (strpos($srcset, 'http://') == '' && strpos($srcset, 'https://') == '') {
                                             $srcsetArray[0] = $currentDomain . $srcsetArray[0];
                                         }
 
@@ -131,7 +136,7 @@ class TwigDecorator extends Environment
                                             continue;
                                         }
 
-                                        if (!strpos($srcset, 'http://') && !strpos($srcset, 'https://')) {
+                                        if (strpos($srcset, 'http://') == '' && strpos($srcset, 'https://') == '') {
                                             $srcsetArray[0] = $currentDomain . $srcsetArray[0];
                                         }
 
@@ -159,6 +164,37 @@ class TwigDecorator extends Environment
                                                 $url = $url . '?org_if_sml=1';
                                             }
                                         }
+                                        $element->setAttribute('src', $ciUrl . $url);
+                                        $element->removeAttribute('srcset');
+                                    }
+                                } else {
+                                    $url = $element->getAttribute('src');
+                                    if (strpos($url, 'http://') == '' && strpos($url, 'https://') == '') {
+                                        $url = $currentDomain . $url;
+                                        if ($ciImageQuality != '' && $ciImageQuality <= 100) {
+                                            $quality = '?q=' . $ciImageQuality;
+                                            if (strpos($url, '?')) {
+                                                $quality = '&q=' . $ciImageQuality;
+                                            }
+                                            $url = $url . $quality;
+                                        }
+
+                                        if ($ciCustomLibrary != '') {
+                                            if (strpos($url, '?')) {
+                                                $url = $url . '&' . $ciCustomLibrary;
+                                            } else {
+                                                $url = $url . '?' . $ciCustomLibrary;
+                                            }
+                                        }
+
+                                        if ($ciPreventImageUpsize) {
+                                            if (strpos($url, '?')) {
+                                                $url = $url . '&org_if_sml=1';
+                                            } else {
+                                                $url = $url . '?org_if_sml=1';
+                                            }
+                                        }
+
                                         $element->setAttribute('src', $ciUrl . $url);
                                         $element->removeAttribute('srcset');
                                     }
