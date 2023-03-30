@@ -8,3 +8,6 @@
 - Prevent change image URLs in admin dashboard
 # 1.0.6
 - Fixed issue with srcset attribute
+# 1.0.7
+- Fixed issue <img> src attribute missing domain
+- Case support <img> using srcset attribute without src attribute
