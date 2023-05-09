@@ -79,7 +79,7 @@ class MediaSubscriber implements EventSubscriberInterface
             $fileExtension = $mediaEntity->getFileExtension();
             if (in_array($fileExtension, ['png', 'jpg', 'svg', 'jpeg', 'gif', 'tiff'])) {
                 $url = $mediaEntity->getUrl();
-                if (strpos($url, 'http') == '' && strpos($url, 'https') == '') {
+                if (strpos($url, 'http') === false && strpos($url, 'https') === false) {
                     $salesChannel = $this->salesChannelRepository->search(
                         (new Criteria([$salesChannelId]))->addAssociation('domains'),
                         $event->getContext()

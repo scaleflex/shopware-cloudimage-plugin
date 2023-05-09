@@ -99,7 +99,7 @@ class TwigDecorator extends Environment
                                     }
 
                                     $src = $element->getAttribute('src');
-                                    if (strpos($src, 'http://') == '' && strpos($src, 'https://') == '') {
+                                    if (strpos($src, 'http://') === false && strpos($src, 'https://') === false) {
                                         $src = $currentDomain . $src;
                                     }
 
@@ -118,7 +118,7 @@ class TwigDecorator extends Environment
                                             continue;
                                         }
 
-                                        if (strpos($srcset, 'http://') == '' && strpos($srcset, 'https://') == '') {
+                                        if (strpos($srcset, 'http://') === false && strpos($srcset, 'https://') === false) {
                                             $srcsetArray[0] = $currentDomain . $srcsetArray[0];
                                         }
 
@@ -136,7 +136,7 @@ class TwigDecorator extends Environment
                                             continue;
                                         }
 
-                                        if (strpos($srcset, 'http://') == '' && strpos($srcset, 'https://') == '') {
+                                        if (strpos($srcset, 'http://') === false && strpos($srcset, 'https://') === false) {
                                             $srcsetArray[0] = $currentDomain . $srcsetArray[0];
                                         }
 
@@ -169,7 +169,7 @@ class TwigDecorator extends Environment
                                     }
                                 } else {
                                     $url = $element->getAttribute('src');
-                                    if (strpos($url, 'http://') == '' && strpos($url, 'https://') == '') {
+                                    if (strpos($url, 'http://') === false && strpos($url, 'https://') === false) {
                                         $url = $currentDomain . $url;
                                         if ($ciImageQuality != '' && $ciImageQuality <= 100) {
                                             $quality = '?q=' . $ciImageQuality;

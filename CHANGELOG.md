@@ -11,3 +11,5 @@
 # 1.0.7
 - Fixed issue <img> src attribute missing domain
 - Case support <img> using srcset attribute without src attribute
+# 1.0.8
+- Fixed error function strpos check http and https 
