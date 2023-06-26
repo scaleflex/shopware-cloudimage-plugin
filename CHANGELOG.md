@@ -13,3 +13,5 @@
 - Case support <img> using srcset attribute without src attribute
 # 1.0.8
 - Fixed error function strpos check http and https 
+# 1.0.9
+- Update JS, CSS library to latest

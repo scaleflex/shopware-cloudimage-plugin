@@ -13,3 +13,5 @@
 - Fallunterstützung <img> mit srcset-Attribut ohne src-Attribut
 # 1.0.8
 - Fehlerfunktion strpos check http und https behoben
+# 1.0.9
+- Aktualisieren Sie die JS- und CSS-Bibliothek auf den neuesten Stand
