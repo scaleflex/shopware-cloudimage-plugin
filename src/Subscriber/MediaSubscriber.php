@@ -4,7 +4,7 @@ namespace Scaleflex\Cloudimage\Subscriber;
 
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use Shopware\Core\Content\Media\MediaEntity;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityLoadedEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,7 +18,7 @@ class MediaSubscriber implements EventSubscriberInterface
 
     public function __construct(
         SystemConfigService $systemConfigService,
-        EntityRepositoryInterface $salesChannelRepository
+        EntityRepository $salesChannelRepository
     )
     {
         $this->systemConfigService = $systemConfigService;

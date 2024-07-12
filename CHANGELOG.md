@@ -15,3 +15,5 @@
 - Fixed error function strpos check http and https 
 # 1.0.9
 - Update JS, CSS library to latest
+# 1.0.10
+- Fix issue dependency injection
