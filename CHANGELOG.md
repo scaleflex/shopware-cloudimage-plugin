@@ -17,3 +17,4 @@
 - Update JS, CSS library to latest
 # 1.0.10
 - Fix issue dependency injection
+- Tested up to v6.6.4.0

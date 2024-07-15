@@ -17,3 +17,4 @@
 - Aktualisieren Sie die JS- und CSS-Bibliothek auf den neuesten Stand
 # 1.0.10
 - Problem mit der Abhängigkeitsinjektion beheben
+- Getestet bis v6.6.4.0
